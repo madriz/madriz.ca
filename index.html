@@ -195,6 +195,42 @@
     margin-top: 2rem; display: flex; justify-content: center; gap: 0.6rem; flex-wrap: wrap;
   }
 
+  /* Contact */
+  .contact-form { max-width: 520px; }
+  .contact-form .form-row {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;
+    margin-bottom: 1rem;
+  }
+  .contact-form .form-row-full { margin-bottom: 1rem; }
+  .contact-form input,
+  .contact-form textarea {
+    width: 100%; padding: 0.7rem 0.9rem;
+    font-family: 'Geist', sans-serif; font-size: 0.85rem; font-weight: 300;
+    color: var(--ink); background: var(--white);
+    border: 1px solid var(--rule); outline: none;
+    transition: border-color 0.2s;
+  }
+  .contact-form input:focus,
+  .contact-form textarea:focus { border-color: var(--accent); }
+  .contact-form input::placeholder,
+  .contact-form textarea::placeholder { color: var(--ink-4); }
+  .contact-form textarea { resize: vertical; min-height: 120px; }
+  .contact-form button {
+    padding: 0.7rem 2rem;
+    font-family: 'Geist', sans-serif; font-size: 0.78rem; font-weight: 500;
+    letter-spacing: 0.02em; cursor: pointer;
+    background: var(--accent); color: var(--white);
+    border: 1px solid var(--accent); transition: all 0.2s;
+  }
+  .contact-form button:hover { background: var(--accent-dark); border-color: var(--accent-dark); }
+  .form-success {
+    display: none; padding: 1.5rem; background: var(--accent-light);
+    border: 1px solid var(--accent-border); font-size: 0.88rem; color: var(--ink-2);
+  }
+  @media (max-width: 680px) {
+    .contact-form .form-row { grid-template-columns: 1fr; }
+  }
+
   /* Footer */
   footer { border-top: 1px solid var(--rule-light); padding: 2rem 0; }
   .footer-inner { display: flex; justify-content: space-between; align-items: center; }
@@ -249,6 +285,7 @@
       <a href="#background">Background</a>
       <a href="#writing">Writing</a>
       <a href="https://www.linkedin.com/in/rmadriz/" target="_blank">LinkedIn</a>
+      <a href="#contact">Contact</a>
     </div>
   </div>
 </header>
@@ -351,7 +388,7 @@
     <div class="bg-prose rv">
       <p>I'm a mechanical engineer by training, with a master of engineering management from the University of Colorado at Boulder and an MBA from York University's Schulich School of Business. I also completed the Program on Negotiation and Leadership at Harvard.</p>
       <p>My career has moved between building my own companies and working inside large ones. I've co-founded four ventures with two exits, and held senior roles at TELUS and Bell Canada, among others. Earlier I worked in with heavy machinery at Husky Injection Moulding and Fiat Avio (now Siemens), Ingersoll Dresser Pumps, as well as with a Honeywell &amp; Allen Bradley system integrator for the Oil &amp; Gas sector.</p>
-      <p>More recently I've focused on advisory work -- supporting venture-backed companies across AI, fintech, and media with strategy, product development, and commercial scaling. Clients have included <a href="https://www.imotions.com" target="_blank">iMotions</a>, <a href="https://nulogy.com/" target="_blank">Nulogy</a>, <a href="https://zone.tv/" target="_blank">ZoneTV</a>, and a Boston-based family office investing in AI and quantum computing.</p>
+      <p>More recently I've focused on advisory work -- supporting venture-backed companies across AI, fintech, and media with strategy, product development, and commercial scaling.</p>
       <p>Fluent in English, Spanish, and Italian. Two US patent applications, one issued. Based in Toronto.</p>
     </div>
   </div>
@@ -396,6 +433,36 @@
   </div>
 </section>
 
+<hr class="rule">
+
+<section id="contact" class="section section-alt">
+  <div class="container">
+    <span class="mono rv">Contact</span>
+    <h2 class="section-heading rv">Get in touch</h2>
+    <div class="contact-form rv" id="contactForm">
+      <div class="form-row">
+        <input type="text" name="first_name" placeholder="First name" required>
+        <input type="text" name="last_name" placeholder="Last name" required>
+      </div>
+      <div class="form-row-full">
+        <input type="text" name="organization" placeholder="Organization">
+      </div>
+      <div class="form-row-full">
+        <input type="email" name="email" placeholder="Email" required>
+      </div>
+      <div class="form-row-full">
+        <textarea name="message" placeholder="Message" required></textarea>
+      </div>
+      <input type="hidden" name="access_key" value="63a3567f-c06c-4dae-91bc-ad40e7d75dc8">
+      <input type="hidden" name="subject" value="New contact from madriz.ca">
+      <input type="hidden" name="from_name" value="madriz.ca Contact Form">
+      <input type="checkbox" name="botcheck" style="display:none">
+      <button type="submit" id="contactSubmit">Send message</button>
+    </div>
+    <div class="form-success" id="formSuccess">Thank you for reaching out. I'll get back to you shortly.</div>
+  </div>
+</section>
+
 <footer>
   <div class="container">
     <div class="footer-inner">
@@ -422,6 +489,41 @@
       document.querySelector(a.getAttribute('href'))?.scrollIntoView({ behavior: 'smooth' });
       document.querySelector('.nav-right').classList.remove('open');
     });
+  });
+
+  // Contact form
+  document.getElementById('contactSubmit').addEventListener('click', function(e) {
+    e.preventDefault();
+    const form = document.getElementById('contactForm');
+    const inputs = form.querySelectorAll('[required]');
+    let valid = true;
+    inputs.forEach(input => { if (!input.value.trim()) valid = false; });
+    if (!valid) { alert('Please fill in all required fields.'); return; }
+
+    const data = {};
+    form.querySelectorAll('input, textarea').forEach(el => {
+      if (el.name && el.style.display !== 'none') data[el.name] = el.value;
+    });
+    // Include hidden fields
+    form.querySelectorAll('input[type="hidden"]').forEach(el => {
+      data[el.name] = el.value;
+    });
+
+    fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    })
+    .then(r => r.json())
+    .then(result => {
+      if (result.success) {
+        form.style.display = 'none';
+        document.getElementById('formSuccess').style.display = 'block';
+      } else {
+        alert('Something went wrong. Please try again.');
+      }
+    })
+    .catch(() => alert('Something went wrong. Please try again.'));
   });
 </script>
 
