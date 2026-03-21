@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Claude Experiments — Rodrigo Madriz</title>
+<meta name="description" content="One architect building working products in his spare time — using Claude as infrastructure across four simultaneous ventures.">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-JGHJJ5RNB8"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-JGHJJ5RNB8');
+</script>
+<link rel="icon" type="image/png" href="data:image/png;base64,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">
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,400;0,500;0,600;1,400&family=Geist:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --white: #ffffff;
+    --off-white: #f8f8f6;
+    --warm-gray: #f0efeb;
+    --ink: #1b1b1b;
+    --ink-2: #444;
+    --ink-3: #777;
+    --ink-4: #aaa;
+    --rule: #e2e1dc;
+    --rule-light: #edece8;
+    --accent: rgb(0,172,237);
+    --accent-light: rgba(0,172,237,0.07);
+    --accent-border: rgba(0,172,237,0.2);
+    --accent-dark: rgb(0,140,200);
+  }
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Geist', -apple-system, sans-serif;
+    background: var(--white); color: var(--ink);
+    line-height: 1.7; -webkit-font-smoothing: antialiased; overflow-x: hidden;
+  }
+  ::selection { background: var(--accent-light); color: var(--accent-dark); }
+
+  header {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(255,255,255,0.92); backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--rule-light);
+  }
+  .nav-inner {
+    max-width: 880px; margin: 0 auto; padding: 0 2rem;
+    height: 60px; display: flex; justify-content: space-between; align-items: center;
+  }
+  .nav-name {
+    font-family: 'Newsreader', serif; font-size: clamp(1.1rem, 2vw, 1.4rem); font-weight: 500;
+    color: var(--ink); text-decoration: none; letter-spacing: -0.02em;
+  }
+  .nav-name:hover { color: var(--accent-dark); }
+  .nav-breadcrumb {
+    font-family: 'IBM Plex Mono', monospace; font-size: 0.62rem;
+    letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-4);
+  }
+
+  .container { max-width: 880px; margin: 0 auto; padding: 0 2rem; }
+  .section { padding: 4rem 0; }
+  .section-alt { background: var(--off-white); }
+  .rule { border: none; border-top: 1px solid var(--rule-light); margin: 0; }
+  .mono {
+    font-family: 'IBM Plex Mono', monospace; font-size: 0.62rem;
+    letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-4);
+  }
+  .section-heading {
+    font-family: 'Newsreader', serif; font-size: 1.5rem; font-weight: 500;
+    margin: 0.6rem 0 2rem; letter-spacing: -0.01em; line-height: 1.3;
+  }
+
+  .rv { opacity: 0; transform: translateY(8px); transition: opacity 0.5s ease, transform 0.5s ease; }
+  .rv.v { opacity: 1; transform: translateY(0); }
+  @keyframes up { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* HERO */
+  .hero { padding: 7.5rem 0 3.5rem; }
+  .hero-eyebrow {
+    font-family: 'IBM Plex Mono', monospace; font-size: 0.62rem;
+    letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-4);
+    margin-bottom: 0.8rem; animation: up 0.5s ease both;
+  }
+  .hero h1 {
+    font-family: 'Newsreader', serif;
+    font-size: clamp(1.7rem, 3.5vw, 2.6rem);
+    font-weight: 500; line-height: 1.18; letter-spacing: -0.025em;
+    margin-bottom: 1.2rem; color: var(--ink); animation: up 0.5s ease 0.1s both;
+  }
+  .hero h1 em { font-style: italic; color: var(--ink-3); }
+  .hero-lede {
+    font-size: 0.95rem; color: var(--ink-2); font-weight: 300;
+    line-height: 1.8; max-width: 560px; animation: up 0.5s ease 0.2s both;
+  }
+  .hero-lede strong { font-weight: 500; color: var(--ink); }
+  .hero-links {
+    margin-top: 1.5rem; display: flex; gap: 0.6rem; flex-wrap: wrap;
+    animation: up 0.5s ease 0.3s both;
+  }
+  .chip {
+    font-size: 0.72rem; font-weight: 500; padding: 0.4rem 1rem;
+    text-decoration: none; transition: all 0.2s;
+    border: 1px solid var(--rule); color: var(--ink-2); background: var(--white);
+  }
+  .chip:hover { border-color: var(--accent-border); color: var(--accent-dark); }
+
+  /* PREMISE */
+  .premise-row {
+    display: grid; grid-template-columns: 130px 1fr; gap: 2rem; align-items: start;
+    padding: 1.75rem 0; border-bottom: 1px solid var(--rule-light);
+  }
+  .premise-row:first-child { border-top: 1px solid var(--rule-light); }
+  .premise-label {
+    font-family: 'IBM Plex Mono', monospace; font-size: 0.58rem;
+    letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-4);
+    padding-top: 0.15rem; line-height: 1.9;
+  }
+  .premise-body {
+    font-family: 'Newsreader', serif; font-size: 1.05rem; font-weight: 400;
+    color: var(--ink); line-height: 1.7; letter-spacing: -0.005em;
+  }
+  .premise-body strong { font-weight: 500; }
+
+  /* STATS */
+  .stats-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    border: 1px solid var(--rule); margin-bottom: 1.5rem;
+  }
+  .stat-cell {
+    padding: 1.75rem 1.5rem;
+    border-right: 1px solid var(--rule); border-bottom: 1px solid var(--rule);
+    opacity: 0; transform: translateY(8px);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+  }
+  .stat-cell:nth-child(3n) { border-right: none; }
+  .stat-cell.visible { opacity: 1; transform: translateY(0); }
+  .stat-value {
+    font-family: 'Newsreader', serif;
+    font-size: clamp(1.9rem, 3vw, 2.5rem);
+    font-weight: 400; letter-spacing: -0.035em; color: var(--ink);
+    line-height: 1; margin-bottom: 0.4rem;
+  }
+  .stat-value .unit { font-size: 0.52em; color: var(--ink-4); font-weight: 400; }
+  .stat-value.accent { color: var(--accent); }
+  .stat-label {
+    font-family: 'IBM Plex Mono', monospace; font-size: 0.58rem;
+    letter-spacing: 0.08em; color: var(--ink-4); text-transform: uppercase; margin-bottom: 0.3rem;
+  }
+  .stat-context { font-size: 0.78rem; color: var(--ink-3); line-height: 1.55; font-weight: 300; }
+
+  /* HARDWARE CALLOUT */
+  .hw-note {
+    padding: 1rem 1.25rem; border: 1px solid var(--rule-light);
+    background: var(--white); margin-bottom: 2.5rem;
+    display: flex; align-items: baseline; gap: 1rem; flex-wrap: wrap;
+  }
+  .hw-label {
+    font-family: 'IBM Plex Mono', monospace; font-size: 0.58rem;
+    letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-4); white-space: nowrap;
+  }
+  .hw-body { font-size: 0.82rem; color: var(--ink-3); font-weight: 300; line-height: 1.6; }
+  .hw-body strong { color: var(--ink-2); font-weight: 500; }
+
+  /* PROJECT TABLE */
+  .proj-table { width: 100%; border-collapse: collapse; }
+  .proj-table th {
+    font-family: 'IBM Plex Mono', monospace; font-size: 0.58rem;
+    letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-4);
+    padding: 0.7rem 1rem; text-align: left; border-bottom: 2px solid var(--rule);
+  }
+  .proj-table th.r { text-align: right; }
+  .proj-table td {
+    padding: 1rem 1rem; border-bottom: 1px solid var(--rule-light);
+    font-size: 0.85rem; color: var(--ink); vertical-align: top;
+  }
+  .proj-table td.r { text-align: right; }
+  .proj-table tr:last-child td { border-bottom: none; }
+  .proj-table tr:hover td { background: var(--off-white); }
+  .proj-table td p {
+    font-size: 0.76rem; color: var(--ink-4); font-weight: 300; margin-top: 0.25rem;
+    line-height: 1.5; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.02em;
+  }
+  .tag {
+    display: inline-block; font-family: 'IBM Plex Mono', monospace; font-size: 0.56rem;
+    letter-spacing: 0.04em; padding: 0.2rem 0.5rem; font-weight: 500;
+  }
+  .tag-code     { background: var(--accent-light); color: var(--accent-dark); }
+  .tag-research { background: var(--warm-gray); color: var(--ink-3); }
+  .tag-strategy { background: rgba(200,150,0,0.07); color: #8a6200; }
+  .status-live {
+    font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; color: var(--accent);
+  }
+  .status-live::before {
+    content: ''; display: inline-block; width: 5px; height: 5px;
+    border-radius: 50%; background: var(--accent); margin-right: 5px; vertical-align: middle;
+  }
+  .status-wip { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; color: var(--ink-4); }
+
+  /* WORKFLOW */
+  .workflow-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--rule); }
+  .wf-card { background: var(--white); padding: 2rem; border-left: 3px solid transparent; }
+  .wf-card.code { border-left-color: var(--accent); }
+  .wf-card.chat { border-left-color: var(--ink-4); }
+  .wf-label {
+    font-family: 'IBM Plex Mono', monospace; font-size: 0.58rem;
+    letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.5rem;
+  }
+  .wf-card.code .wf-label { color: var(--accent-dark); }
+  .wf-card.chat .wf-label { color: var(--ink-4); }
+  .wf-card h3 {
+    font-family: 'Newsreader', serif; font-size: 1rem; font-weight: 500;
+    margin-bottom: 0.6rem; color: var(--ink); letter-spacing: -0.01em;
+  }
+  .wf-card p { font-size: 0.83rem; color: var(--ink-2); line-height: 1.7; font-weight: 300; }
+  .wf-list { list-style: none; margin-top: 0.9rem; }
+  .wf-list li {
+    font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; color: var(--ink-3);
+    padding: 0.35rem 0; border-bottom: 1px solid var(--rule-light);
+    display: flex; align-items: center; gap: 0.5rem;
+  }
+  .wf-list li:last-child { border-bottom: none; }
+  .wf-list li::before { content: '→'; color: var(--ink-4); }
+
+  /* ECONOMICS */
+  .cost-grid { display: grid; grid-template-columns: 1fr 1fr; border: 1px solid var(--rule); }
+  .cost-col { padding: 2rem; }
+  .cost-col.trad { border-right: 1px solid var(--rule); }
+  .cost-col-label {
+    font-family: 'IBM Plex Mono', monospace; font-size: 0.58rem;
+    letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-4); margin-bottom: 1rem;
+  }
+  .cost-primary {
+    font-family: 'Newsreader', serif;
+    font-size: clamp(1.6rem, 2.5vw, 2.2rem);
+    font-weight: 400; letter-spacing: -0.03em; line-height: 1; margin-bottom: 0.3rem;
+  }
+  .cost-primary .strike {
+    color: var(--ink-4); position: relative; display: inline-block;
+  }
+  .cost-primary .strike::after {
+    content: ''; position: absolute; left: 0; right: 0; top: 50%;
+    height: 1.5px; background: var(--ink-4);
+  }
+  .cost-primary .actual { color: var(--accent); }
+  .cost-sub { font-size: 0.78rem; color: var(--ink-4); margin-bottom: 1.5rem; font-weight: 300; }
+  .cost-breakdown { list-style: none; }
+  .cost-breakdown li {
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 0.82rem; padding: 0.5rem 0;
+    border-bottom: 1px dashed var(--rule-light); color: var(--ink-2);
+  }
+  .cost-breakdown li:last-child { border-bottom: none; }
+  .cost-breakdown .amt { font-family: 'IBM Plex Mono', monospace; font-size: 0.7rem; color: var(--ink); }
+  .cost-breakdown li.subtotal {
+    border-top: 1px solid var(--rule); border-bottom: none;
+    margin-top: 0.3rem; padding-top: 0.7rem;
+  }
+  .cost-breakdown li.subtotal span:first-child { font-weight: 500; color: var(--ink); }
+  .cost-breakdown li.subtotal .amt { color: var(--accent); font-weight: 500; }
+  .cost-breakdown li.dimmed { opacity: 0.5; font-style: italic; }
+  .savings-note {
+    margin-top: 1.5rem; padding: 1rem 1.25rem;
+    background: var(--accent-light); border-left: 3px solid var(--accent);
+    font-size: 0.85rem; color: var(--ink-2); line-height: 1.7;
+  }
+  .savings-note strong { font-weight: 500; color: var(--ink); }
+
+  /* EFFORT TABLE */
+  .effort-table { width: 100%; border-collapse: collapse; margin-bottom: 1rem; }
+  .effort-table th {
+    font-family: 'IBM Plex Mono', monospace; font-size: 0.58rem;
+    letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-4);
+    padding: 0.7rem 1rem; text-align: left; border-bottom: 2px solid var(--rule);
+  }
+  .effort-table th.r { text-align: right; }
+  .effort-table td {
+    padding: 0.9rem 1rem; border-bottom: 1px solid var(--rule-light);
+    font-size: 0.83rem; color: var(--ink); vertical-align: top;
+  }
+  .effort-table td.r { text-align: right; font-family: 'IBM Plex Mono', monospace; font-size: 0.76rem; }
+  .effort-table td small { display: block; font-size: 0.72rem; color: var(--ink-4); font-weight: 300; margin-top: 0.15rem; }
+  .effort-table tr:last-child td { border-bottom: none; }
+  .effort-table tr.total-row td {
+    border-top: 2px solid var(--rule); border-bottom: none;
+    font-weight: 500; padding-top: 1rem;
+  }
+  .effort-table tr.total-row td.r { color: var(--accent); font-weight: 500; font-size: 0.85rem; }
+
+  /* PRINCIPLES */
+  .principles-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--rule); }
+  .principle-item { background: var(--white); padding: 1.75rem; }
+  .principle-num {
+    font-family: 'IBM Plex Mono', monospace; font-size: 0.58rem;
+    color: var(--ink-4); letter-spacing: 0.08em; margin-bottom: 0.5rem;
+  }
+  .principle-item h4 {
+    font-family: 'Newsreader', serif; font-size: 0.95rem; font-weight: 500;
+    color: var(--ink); margin-bottom: 0.4rem; letter-spacing: -0.01em; line-height: 1.4;
+  }
+  .principle-item p { font-size: 0.8rem; color: var(--ink-3); line-height: 1.65; font-weight: 300; }
+
+  /* CLOSING */
+  .closing-inner { max-width: 600px; }
+  .closing-inner h2 {
+    font-family: 'Newsreader', serif; font-size: 1.4rem; font-weight: 500;
+    color: var(--ink); letter-spacing: -0.02em; margin-bottom: 1rem; line-height: 1.3;
+  }
+  .closing-inner p { font-size: 0.88rem; color: var(--ink-2); line-height: 1.85; margin-bottom: 0.9rem; font-weight: 300; }
+  .closing-inner p.small {
+    color: var(--ink-4); font-size: 0.72rem;
+    font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.03em; line-height: 1.8;
+  }
+  .back-link {
+    display: inline-flex; align-items: center; gap: 0.4rem; margin-top: 1.5rem;
+    font-family: 'IBM Plex Mono', monospace; font-size: 0.62rem;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--accent); text-decoration: none;
+    border-bottom: 1px solid var(--accent-border); padding-bottom: 1px;
+  }
+  .back-link:hover { color: var(--accent-dark); border-color: var(--accent-dark); }
+
+  footer { border-top: 1px solid var(--rule-light); padding: 2rem 0; }
+  .footer-inner { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+  .footer-copy { font-size: 0.78rem; color: var(--ink-4); font-weight: 300; }
+  .footer-links { display: flex; gap: 1.4rem; }
+  .footer-links a { font-size: 0.78rem; color: var(--ink-4); text-decoration: none; }
+  .footer-links a:hover { color: var(--ink-2); }
+
+  @media (max-width: 680px) {
+    .stats-grid { grid-template-columns: 1fr 1fr; }
+    .stat-cell:nth-child(3n) { border-right: 1px solid var(--rule); }
+    .stat-cell:nth-child(2n) { border-right: none; }
+    .workflow-grid, .cost-grid, .principles-grid { grid-template-columns: 1fr; }
+    .cost-col.trad { border-right: none; border-bottom: 1px solid var(--rule); }
+    .premise-row { grid-template-columns: 1fr; gap: 0.4rem; }
+    .proj-table th:nth-child(2), .proj-table td:nth-child(2),
+    .effort-table th:nth-child(2), .effort-table td:nth-child(2) { display: none; }
+  }
+  @media (max-width: 480px) {
+    .stats-grid { grid-template-columns: 1fr; }
+    .stat-cell:nth-child(n) { border-right: none; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="nav-inner">
+    <a href="/" class="nav-name">Rodrigo Madriz</a>
+    <span class="nav-breadcrumb">Claude Experiments</span>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-eyebrow">Working Notes — AI as Infrastructure</div>
+    <h1>One Architect.<br><em>Multiple Products.</em><br>One AI Layer. In Days.</h1>
+    <p class="hero-lede">
+      A transparent account of using <strong>Claude</strong> as primary development and research infrastructure — not as a writing assistant, but as an autonomous collaborator running across four simultaneous, production-grade projects.
+    </p>
+    <div class="hero-links">
+      <a href="#output" class="chip">Output numbers</a>
+      <a href="#projects" class="chip">Projects</a>
+      <a href="#economics" class="chip">Economics</a>
+      <a href="#principles" class="chip">Operating principles</a>
+    </div>
+  </div>
+</section>
+
+<hr class="rule">
+
+<!-- PREMISE -->
+<section id="premise" class="section">
+  <div class="container">
+    <span class="mono rv">The hypothesis</span>
+    <div style="margin-top: 0.6rem;">
+      <div class="premise-row rv">
+        <div class="premise-label">Operating<br>model</div>
+        <div class="premise-body">A single builder, using AI systematically, can execute work that would ordinarily require a team — <strong>without sacrificing depth, quality, or institutional knowledge.</strong></div>
+      </div>
+      <div class="premise-row rv">
+        <div class="premise-label">The test</div>
+        <div class="premise-body">Four working products built concurrently — entirely in spare time. A fintech intelligence platform. A loyalty infrastructure startup. Two Canadian price comparison platforms. Each with its own stack, data pipeline, analytics layer, and go-to-market.</div>
+      </div>
+      <div class="premise-row rv">
+        <div class="premise-label">The result</div>
+        <div class="premise-body">All four are live or in active deployment. <strong>The constraint shifted from capital to judgment.</strong></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="rule">
+
+<!-- STATS -->
+<section id="output" class="section section-alt">
+  <div class="container">
+    <span class="mono rv">01 — Production output</span>
+    <h2 class="section-heading rv">HomeGadgets.ca + BasketBrain.ca — zero to production in 22 days</h2>
+
+    <div class="hw-note rv">
+      <span class="hw-label">Hardware note</span>
+      <span class="hw-body">All development and NLP computation ran on a <strong>5–6 year old PC with an NVIDIA RTX 3070</strong> — two GPU generations behind current. No cloud compute. No dedicated ML infrastructure. The ContextQuant NLP pipelines, FinBERT scoring, and GPU-accelerated custom model all ran locally on this machine.</span>
+    </div>
+
+    <div class="stats-grid rv-grid">
+      <div class="stat-cell">
+        <div class="stat-label">Lines of Code</div>
+        <div class="stat-value">~90<span class="unit">K</span></div>
+        <div class="stat-context">~70K HomeGadgets/BasketBrain + ~20K ContextQuant pipelines, NLP, and signal framework.</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-label">Git Commits</div>
+        <div class="stat-value">392<span class="unit">+</span></div>
+        <div class="stat-context">HomeGadgets alone: 392 over 22 days. Peak: 62 in a single day.</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-label">Calendar Days</div>
+        <div class="stat-value accent">22</div>
+        <div class="stat-context">Blank repo to bilingual production platform — HomeGadgets alone.</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-label">Products + Prices</div>
+        <div class="stat-value">10<span class="unit">.8K</span></div>
+        <div class="stat-context">TVs, appliances, laptops, monitors, vacuums. 19.5K live prices across 24 retailers.</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-label">Cross-Retailer Matches</div>
+        <div class="stat-value">2<span class="unit">.7K</span></div>
+        <div class="stat-context">Same product identified across retailers — powers price gap detection and deal alerts.</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-label">Referred GMV</div>
+        <div class="stat-value">$10<span class="unit">K+</span></div>
+        <div class="stat-context">CAD tracked in the first days of operation via merchant click analytics.</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-label">Grocery Prices</div>
+        <div class="stat-value">40<span class="unit">K+</span></div>
+        <div class="stat-context">19 chains. Powers postal-code price comparison and cart optimizer.</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-label">Pipeline Scripts</div>
+        <div class="stat-value">39<span class="unit">+</span></div>
+        <div class="stat-context">Shared scraper_utils.py. 11 GitHub Actions workflows. 26 API endpoints.</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-label">DB Tables</div>
+        <div class="stat-value">30</div>
+        <div class="stat-context">Supabase PostgreSQL. Free tier. Admin dashboard with merchant analytics.</div>
+      </div>
+    </div>
+
+    <h2 class="section-heading rv" style="margin-top: 2.5rem;">ContextQuant.com — peer-relative financial NLP</h2>
+    <p class="rv" style="font-size: 0.88rem; color: var(--ink-2); font-weight: 300; line-height: 1.8; max-width: 680px; margin-bottom: 2rem;">
+      The data corpus is the input. The product is what comes out: <strong>peer-relative disclosure signals</strong> that identify when a company's risk language, sentiment, or forward guidance diverges meaningfully from its direct competitors — producing actionable outputs mapped to specific audiences: credit risk, equity research, systematic trading.
+    </p>
+    <div class="stats-grid rv-grid">
+      <div class="stat-cell">
+        <div class="stat-label">Words Analyzed</div>
+        <div class="stat-value">350<span class="unit">M</span></div>
+        <div class="stat-context">~290M from SEC filings + ~63M earnings call transcripts. 2015–2025.</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-label">SEC Filings</div>
+        <div class="stat-value">26<span class="unit">.8K</span></div>
+        <div class="stat-context">10-K, 10-Q, 8-K, proxy statements. 8 ingestion pipelines.</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-label">NLP Features</div>
+        <div class="stat-value">282<span class="unit">K</span></div>
+        <div class="stat-context">Classical features, FinBERT, LLM scoring, GPU-accelerated custom model — local RTX 3070.</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-label">Hypotheses Tested</div>
+        <div class="stat-value">15</div>
+        <div class="stat-context">3 confirmed standalone. 7 rejected. That is what rigorous research looks like.</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-label">OOS Test Years</div>
+        <div class="stat-value">10</div>
+        <div class="stat-context">2016–2025. Walk-forward: 6 years, zero composite sign flips.</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-label">Composite IC</div>
+        <div class="stat-value accent">0.097</div>
+        <div class="stat-context">p&lt;0.0001. Information ratio 1.41. Sharpe 0.88. +213% cumulative backtest return.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="rule">
+
+<!-- PROJECTS -->
+<section id="projects" class="section">
+  <div class="container">
+    <span class="mono rv">02 — Scope across projects</span>
+    <h2 class="section-heading rv">Four ventures. Three modes of use.</h2>
+    <table class="proj-table rv">
+      <thead>
+        <tr>
+          <th>Project</th>
+          <th>Domain</th>
+          <th>Claude mode</th>
+          <th>What was built</th>
+          <th class="r">Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>HomeGadgets.ca</strong></td>
+          <td>Consumer / data</td>
+          <td><span class="tag tag-code">Code — Autonomous</span></td>
+          <td>Full-stack platform, 39 scrapers, cross-retailer price matching, merchant click analytics, bilingual (EN/FR), affiliate layer
+            <p>Next.js · FastAPI · Supabase · Vercel · Render · Cloudflare</p>
+          </td>
+          <td class="r"><span class="status-live">Live</span></td>
+        </tr>
+        <tr>
+          <td><strong>BasketBrain.ca</strong></td>
+          <td>Grocery / data</td>
+          <td><span class="tag tag-code">Code — Autonomous</span></td>
+          <td>19 grocery chains, 40K+ prices, postal-code comparison, cart optimizer, store locator
+            <p>Shared codebase and backend with HomeGadgets.</p>
+          </td>
+          <td class="r"><span class="status-live">Live</span></td>
+        </tr>
+        <tr>
+          <td><strong>ContextQuant.com</strong></td>
+          <td>AI / quantitative finance</td>
+          <td><span class="tag tag-research">Research — Analytical</span></td>
+          <td>8 data pipelines, 4 NLP approaches, peer-relative signal framework, 15 hypotheses tested, walk-forward validation, working paper, 32-institution commercialization target list
+            <p>Python · PostgreSQL · FinBERT · SEC EDGAR · FRED · FEC · local GPU</p>
+          </td>
+          <td class="r"><span class="status-wip">Deployment</span></td>
+        </tr>
+        <tr>
+          <td><strong>MerchantLink.ca</strong></td>
+          <td>Fintech / B2B SaaS</td>
+          <td><span class="tag tag-strategy">Strategy — Architectural</span></td>
+          <td>Full BRD, 5-layer system architecture, regulatory framework (PIPEDA, FCAC open banking), competitive positioning, UI prototypes for merchant onboarding, consumer redemption flow, and bank integration
+            <p>Hypothesis validation first. Backend when bank partner is secured.</p>
+          </td>
+          <td class="r"><span class="status-wip">Pre-pilot</span></td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="rv" style="font-size: 0.72rem; color: var(--ink-4); margin-top: 1rem; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.04em;">
+      Three distinct modes: autonomous code execution · quantitative research design · strategy and architecture synthesis.
+    </p>
+  </div>
+</section>
+
+<hr class="rule">
+
+<!-- WORKFLOW -->
+<section id="workflow" class="section section-alt">
+  <div class="container">
+    <span class="mono rv">03 — How the workflow operates</span>
+    <h2 class="section-heading rv">Strict separation of thinking and doing.</h2>
+    <div class="workflow-grid rv">
+      <div class="wf-card code">
+        <div class="wf-label">Claude Code</div>
+        <h3>Autonomous execution</h3>
+        <p>All technical work runs through Claude Code — a command-line agent operating directly on the codebase. Prompts are drafted in Claude Chat, then pasted into Code with a standing instruction to proceed without clarifying questions. Multiple Code instances run in parallel when workstreams are independent.</p>
+        <ul class="wf-list">
+          <li>Scraper builds and debugging</li>
+          <li>Database migrations and schema design</li>
+          <li>CI/CD pipeline configuration</li>
+          <li>Analytics layer and admin dashboards</li>
+          <li>Security hardening and compliance</li>
+        </ul>
+      </div>
+      <div class="wf-card chat">
+        <div class="wf-label">Claude Chat</div>
+        <h3>Strategy, research, architecture</h3>
+        <p>Claude Chat handles diagnosis, planning, and prompt engineering. For ContextQuant it served as a research design partner across 15 signal hypotheses and 10 years of out-of-sample validation. For MerchantLink it synthesized regulatory framing, stakeholder mapping, and system architecture for a product deliberately built without a backend until a bank pilot is secured.</p>
+        <ul class="wf-list">
+          <li>Project state synthesis across sessions</li>
+          <li>Signal design and statistical framing</li>
+          <li>Regulatory and competitive research</li>
+          <li>Investor and bank outreach materials</li>
+          <li>Prompt engineering for Code sessions</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="rule">
+
+<!-- ECONOMICS -->
+<section id="economics" class="section">
+  <div class="container">
+    <span class="mono rv">04 — The economics</span>
+    <h2 class="section-heading rv">What the market would have charged.</h2>
+
+    <p class="rv" style="font-size: 0.88rem; color: var(--ink-2); font-weight: 300; line-height: 1.8; max-width: 680px; margin-bottom: 2rem;">
+      Each project required a different professional profile. Full-stack development is one rate. Quantitative finance research is another. Fintech strategy consulting is a third. The table below uses Toronto market rates for each discipline.
+    </p>
+
+    <table class="effort-table rv">
+      <thead>
+        <tr>
+          <th>Project</th>
+          <th>Professional equivalent</th>
+          <th>Basis</th>
+          <th class="r">Estimated range (CAD)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>HomeGadgets.ca + BasketBrain.ca</strong>
+            <small>69K lines · 392 commits · 22 days · bilingual · full affiliate + analytics layer</small>
+          </td>
+          <td>Senior full-stack developer</td>
+          <td>500–600 hrs @ $85–100/hr + design, DevOps, QA, PM</td>
+          <td class="r">$165K–$200K</td>
+        </tr>
+        <tr>
+          <td><strong>ContextQuant.com</strong>
+            <small>8 pipelines · 4 NLP approaches · 15 hypotheses · 10-yr OOS validation · working paper · commercialization strategy</small>
+          </td>
+          <td>Quant researcher / data scientist</td>
+          <td>6–12 month engagement @ $150–250/hr consulting rate</td>
+          <td class="r">$150K–$300K</td>
+        </tr>
+        <tr>
+          <td><strong>MerchantLink.ca</strong>
+            <small>Full BRD · 5-layer architecture · PIPEDA + FCAC regulatory framework · competitive analysis · UI prototypes · bank outreach</small>
+          </td>
+          <td>Fintech strategy consultant</td>
+          <td>Discovery engagement @ $200–400/hr (boutique / Big 4)</td>
+          <td class="r">$50K–$100K</td>
+        </tr>
+        <tr class="total-row">
+          <td colspan="3">Combined estimated value across all four projects</td>
+          <td class="r">$365K–$600K</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div style="margin-top: 3rem;">
+      <div class="cost-grid rv">
+        <div class="cost-col trad">
+          <div class="cost-col-label">What was just estimated above</div>
+          <div class="cost-primary"><span class="strike">$365K–$600K</span></div>
+          <div class="cost-sub">CAD — combined across all four projects at market rates</div>
+        </div>
+        <div class="cost-col ai">
+          <div class="cost-col-label">Actual recurring monthly cost</div>
+          <div class="cost-primary"><span class="actual">~$120 USD/mo</span></div>
+          <div class="cost-sub">All four projects. Every session.</div>
+          <ul class="cost-breakdown">
+            <li><span>Claude Max (Chat + Code)</span><span class="amt">$100 USD/mo</span></li>
+            <li><span>Vercel Pro</span><span class="amt">$20 USD/mo</span></li>
+            <li><span>Render (backend)</span><span class="amt">~$20 CAD/mo</span></li>
+            <li><span>Supabase</span><span class="amt">$0</span></li>
+            <li><span>GitHub Actions</span><span class="amt">$0</span></li>
+            <li><span>Cloudflare</span><span class="amt">$0</span></li>
+            <li><span>Domains</span><span class="amt">~$3 CAD/mo</span></li>
+            <li class="subtotal"><span>Total</span><span class="amt">~$120 USD/mo</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="savings-note rv">
+      <strong>The binding constraint shifted.</strong> The question is no longer "can we afford to build this?" — it is "is this worth building?" A more productive constraint.
+    </div>
+  </div>
+</section>
+
+<hr class="rule">
+
+<!-- PRINCIPLES -->
+<section id="principles" class="section section-alt">
+  <div class="container">
+    <span class="mono rv">05 — Operating principles</span>
+    <h2 class="section-heading rv">What makes the methodology work.</h2>
+    <div class="principles-grid rv">
+      <div class="principle-item">
+        <div class="principle-num">P1</div>
+        <h4>Claude Chat is for thinking. Claude Code is for doing.</h4>
+        <p>Strict separation prevents conflating architecture decisions with implementation. Strategy sessions produce prompts. Code sessions produce commits.</p>
+      </div>
+      <div class="principle-item">
+        <div class="principle-num">P2</div>
+        <h4>No assumptions — hypotheses are tested against evidence.</h4>
+        <p>Before any architecture decision, Code is asked for facts first. The pattern "ask before architecting" has prevented several costly misdirections.</p>
+      </div>
+      <div class="principle-item">
+        <div class="principle-num">P3</div>
+        <h4>Prompts end with "Proceed autonomously."</h4>
+        <p>Clarifying question loops destroy momentum. Prompts are written with sufficient context for Code to make sensible defaults and report what it decided.</p>
+      </div>
+      <div class="principle-item">
+        <div class="principle-num">P4</div>
+        <h4>Institutional knowledge lives in documentation, not context windows.</h4>
+        <p>Each project maintains a canonical .md file. Every session begins by reading it. Nothing operationally important lives only in a chat window.</p>
+      </div>
+      <div class="principle-item">
+        <div class="principle-num">P5</div>
+        <h4>Parallel instances for independent workstreams.</h4>
+        <p>When tasks don't share state, multiple Code instances run simultaneously — the closest analog to managing a small development team.</p>
+      </div>
+      <div class="principle-item">
+        <div class="principle-num">P6</div>
+        <h4>The architect stays the architect.</h4>
+        <p>AI handles execution. The operator retains all structural decisions: what to build, for whom, and why. Judgment is not delegated.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="rule">
+
+<!-- CLOSING -->
+<section class="section">
+  <div class="container">
+    <div class="closing-inner rv">
+      <h2>One operator. Working products. Spare time.</h2>
+      <p>
+        This is not a thesis about AI capability — it is a working experiment conducted by a single operator building from scratch, testing hypotheses, and shipping products entirely in spare time. No agency. No full-time team. No venture funding. Four ventures running concurrently, each at a different stage, each using AI differently as its engine.
+      </p>
+      <p>
+        What makes this worth documenting is not the output volume. It is what becomes possible when the cost of building stops being the binding constraint — and strategy, judgment, and taste become the scarce resources.
+      </p>
+      <p class="small">
+        Last updated March 2026 · Claude Max (Anthropic) · Next.js · FastAPI · Supabase · Vercel · GitHub Pages · NVIDIA RTX 3070
+      </p>
+      <a href="/" class="back-link">← madriz.ca</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-copy">© 2026 Rodrigo Madriz</div>
+      <div class="footer-links">
+        <a href="https://www.linkedin.com/in/rmadriz/" target="_blank">LinkedIn</a>
+        <a href="https://medium.com/@Madriz" target="_blank">Medium</a>
+        <a href="https://x.com/madriz" target="_blank">X</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('v'); });
+  }, { threshold: 0.05, rootMargin: '0px 0px -20px 0px' });
+  document.querySelectorAll('.rv').forEach(el => obs.observe(el));
+
+  const gridObs = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.querySelectorAll('.stat-cell').forEach((cell, i) => {
+          setTimeout(() => cell.classList.add('visible'), i * 55);
+        });
+        gridObs.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.stats-grid').forEach(g => gridObs.observe(g));
+</script>
+
+</body>
+</html>
