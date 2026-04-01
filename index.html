@@ -62,6 +62,7 @@
     text-decoration: none; transition: color 0.2s;
   }
   .nav-right a:hover { color: var(--ink); }
+  .nav-right a.nav-highlight { color: var(--accent); font-weight: 600; }
   .hamburger {
     display: none; background: none; border: none;
     font-size: 1.3rem; color: var(--ink); cursor: pointer; line-height: 1; padding: 0.25rem;
@@ -289,7 +290,7 @@
     <button class="hamburger" onclick="this.nextElementSibling.classList.toggle('open')" aria-label="Menu">&#9776;</button>
     <div class="nav-right">
       <a href="#projects">Projects</a>
-      <a href="/claude-experiments" style="color: var(--accent);">Experiments</a>
+      <a href="https://madriz.ca/claude-experiments" class="nav-highlight">Experiments</a>
       <a href="#teaching">Teaching</a>
       <a href="#background">Background</a>
       <a href="#writing">Writing</a>
@@ -329,6 +330,22 @@
           <span class="project-url">contextquant.com &rarr;</span>
         </div>
       </a>
+      <a href="https://neuralstrip.com" target="_blank" class="project-row rv">
+        <div class="project-cat">AI / Creative</div>
+        <div>
+          <h3>Neural Strip</h3>
+          <p class="project-desc">An automated daily cartoon strip about the AI industry. A pipeline fetches the day's top AI news, Claude generates a joke and image prompt, and the cartoon is published to the web and Instagram. Built end-to-end with AI-assisted development.</p>
+          <span class="project-url">neuralstrip.com &rarr;</span>
+        </div>
+      </a>
+      <a href="https://homegadgets.ca" target="_blank" class="project-row rv">
+        <div class="project-cat">Consumer / Data</div>
+        <div>
+          <h3>HomeGadgets</h3>
+          <p class="project-desc">A price comparison platform for TVs, laptops, appliances, and home electronics across Canadian retailers including The Brick, Leon's, Visions and others. Prices updated multiple times per week. Affiliate-supported.</p>
+          <span class="project-url">homegadgets.ca &rarr;</span>
+        </div>
+      </a>
       <a href="https://merchantlink.ca" target="_blank" class="project-row rv">
         <div class="project-cat">Fintech</div>
         <div>
@@ -343,14 +360,6 @@
           <h3>BasketBrain</h3>
           <p class="project-desc">A large-scale data ingestion platform that obtains and compares daily grocery prices across 2,500+ store locations in Canada from 20+ vendors, tracking 50,000+ prices updated regularly.</p>
           <span class="project-url">basketbrain.ca &rarr;</span>
-        </div>
-      </a>
-      <a href="https://homegadgets.ca" target="_blank" class="project-row rv">
-        <div class="project-cat">Consumer / Data</div>
-        <div>
-          <h3>HomeGadgets</h3>
-          <p class="project-desc">A price comparison platform for TVs, laptops, appliances, and home electronics across Canadian retailers including The Brick, Leon's, Visions and others. Prices updated multiple times per week. Affiliate-supported.</p>
-          <span class="project-url">homegadgets.ca &rarr;</span>
         </div>
       </a>
       <a href="https://intangles.ai" target="_blank" class="project-row rv">
